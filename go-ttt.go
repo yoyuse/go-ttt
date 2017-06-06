@@ -1,4 +1,4 @@
-// 2017-06-06 new type elm, tbl instead of element
+// 2017-06-06 new type elm, tbl instead of element. slice (bounds) check
 // 2017-06-05
 
 package main
@@ -1171,7 +1171,14 @@ func decode_string(str string) string {
 			t = table
 			dst += ch
 		default:
-			t = t.(tbl)[k]
+			u, ok := t.(tbl)
+			// slice (bounds) check
+			if !ok || len(u) <= k {
+				t = table
+				dst += ch
+				break
+			}
+			t = u[k]
 			switch val := t.(type) {
 			case nil:
 				t = table

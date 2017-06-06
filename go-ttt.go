@@ -1,3 +1,4 @@
+// 2017-06-06
 // 2017-06-05
 
 package main
@@ -6,11 +7,9 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	// "unicode/utf8"
 	"io"
 	"os"
 	"strings"
-	// "regexp"
 )
 
 var keys = "1234567890qwertyuiopasdfghjkl;zxcvbnm,./"

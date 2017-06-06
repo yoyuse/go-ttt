@@ -1197,17 +1197,23 @@ func decode_substring(str string) string {
 	i := len(code) - 1
 	for 0 <= i {
 		ch = code[i]
-		if 0 <= strings.Index(keys, ch) {break}
+		if 0 <= strings.Index(keys, ch) {
+			break
+		}
 		tail = ch + tail
 		i -= 1
 	}
 	for 0 <= i {
 		ch = code[i]
-		if strings.Index(keys, ch) < 0 {break}
+		if strings.Index(keys, ch) < 0 {
+			break
+		}
 		body = ch + body
 		i -= 1
 	}
-	if ch == delimiter {i -= 1}
+	if ch == delimiter {
+		i -= 1
+	}
 	for 0 <= i {
 		ch = code[i]
 		head = ch + head
@@ -1219,10 +1225,12 @@ func decode_substring(str string) string {
 func decode_xfer(str string) string {
 	// ;dXFER;fXFERhaXFER -> 岳3
 	for {
-		i:= strings.Index(str, xfer)
-		if i < 0 {break}
+		i := strings.Index(str, xfer)
+		if i < 0 {
+			break
+		}
 		src := str[:i]
-		str = decode_substring(src) + str[i + len(xfer):]
+		str = decode_substring(src) + str[(i+len(xfer)):]
 	}
 	return str
 }
@@ -1231,10 +1239,18 @@ func do_ttt(args []string, opt_n bool, opt_Z bool) {
 	dst := ""
 	len := len(args)
 	for i, str := range args {
-		if opt_Z {dst += decode_substring(str)} else {dst += decode_xfer(str)}
-		if i == len - 1 {
-			if !opt_n {dst += "\n"}
-		} else {dst += " "}
+		if opt_Z {
+			dst += decode_substring(str)
+		} else {
+			dst += decode_xfer(str)
+		}
+		if i == len-1 {
+			if !opt_n {
+				dst += "\n"
+			}
+		} else {
+			dst += " "
+		}
 	}
 	fmt.Print(dst)
 }
@@ -1246,9 +1262,15 @@ func do_ttt_stdin(opt_n bool, opt_Z bool) {
 		str, err := r.ReadString('\n')
 		// XXX: output here, for case that str does not end with '\n'
 		var dst string
-		if opt_Z {dst = decode_substring(str)} else {dst = decode_xfer(str)}
+		if opt_Z {
+			dst = decode_substring(str)
+		} else {
+			dst = decode_xfer(str)
+		}
 		fmt.Print(dst)
-		if err == io.EOF {break}
+		if err == io.EOF {
+			break
+		}
 	}
 }
 

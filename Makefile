@@ -1,0 +1,25 @@
+# 2017-06-07
+
+SRC	= go-ttt.go
+REPO	= rose.local/yuse/go-ttt
+GO_TTT	= $(REPO)
+TTT	= $(REPO)/ttt
+
+help:
+	@echo "usage: make [run|test|build|install]"
+
+run: $(SRC)
+	@go run $< -Z <<< "kdjd;sjdkd;s"
+
+test:
+	go test $(TTT)
+	go test $(GO_TTT)
+
+build:
+	go build $(TTT)
+	go build $(GO_TTT)
+
+install:
+	go install $(TTT)
+	go install $(GO_TTT)
+

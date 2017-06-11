@@ -20,7 +20,7 @@ func do_ttt(args []string, opt_n bool, opt_Z bool) {
 		if opt_Z {
 			dst += ttt.Decode_substring(str)
 		} else {
-			dst += ttt.Decode_xfer(str)
+			dst += ttt.Decode_at_marker(str)
 		}
 		if i == len-1 {
 			if !opt_n {
@@ -43,7 +43,7 @@ func do_ttt_stdin(opt_n bool, opt_Z bool) {
 		if opt_Z {
 			dst = ttt.Decode_substring(str)
 		} else {
-			dst = ttt.Decode_xfer(str)
+			dst = ttt.Decode_at_marker(str)
 		}
 		fmt.Print(dst)
 		if err == io.EOF {

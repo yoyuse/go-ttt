@@ -43,11 +43,12 @@ var Tests2 = []stringTest {
 	{";d\x1bj;f\x1bjha", "岳ha"},
 }
 
-func TestDecode_xfer(t *testing.T) {
+func TestDecode_at_marker(t *testing.T) {
+	marker = "\x1bj"
 	for _, ts := range Tests2 {
-		dec := Decode_xfer(ts.in)
+		dec := Decode_at_marker(ts.in)
 		if dec != ts.out {
-			t.Errorf("Decode_xfer(%q) == %q, want %q", ts.in, dec, ts.out)
+			t.Errorf("Decode_at_marker(%q) == %q, want %q", ts.in, dec, ts.out)
 		}
 	}
 }

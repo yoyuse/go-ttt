@@ -5,7 +5,7 @@ package ttt
 var keys = "1234567890qwertyuiopasdfghjkl;zxcvbnm,./"
 var delimiter = ":"
 
-var xfer = "\x1bj"
+var marker = ""
 
 // TABLE BEGIN - DO NOT REMOVE THIS LINE
 

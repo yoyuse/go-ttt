@@ -68,15 +68,15 @@ func Decode_substring(str string) string {
 	return head + Decode_string(body) + tail
 }
 
-func Decode_xfer(str string) string {
-	// ;dXFER;fXFERhaXFER -> 岳3
-	for {
-		i := strings.Index(str, xfer)
+func Decode_at_marker(str string) string {
+	// ;dMARKER;fMARKERhaMARKER -> 岳3
+	for marker != "" {			// if marker != "" {for {...}}
+		i := strings.Index(str, marker)
 		if i < 0 {
 			break
 		}
 		src := str[:i]
-		str = Decode_substring(src) + str[(i+len(xfer)):]
+		str = Decode_substring(src) + str[(i+len(marker)):]
 	}
 	return str
 }

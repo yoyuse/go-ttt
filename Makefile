@@ -9,7 +9,7 @@ help:
 	@echo "usage: make [run|test|build|install]"
 
 run: $(SRC)
-	@go run $< -Z <<< "kdjd;sjdkd;s"
+	@go run $< <<< "kdjd;sjdkd;s"
 
 test:
 	go test $(TTT)

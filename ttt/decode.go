@@ -80,3 +80,15 @@ func Decode_at_marker(str string) string {
 	}
 	return str
 }
+
+func Set_marker(str string) {
+	marker = str
+}
+
+func Decode_substring_or_at_marker(str string) string {
+	if marker == "" {
+		return Decode_substring(str)
+	} else {
+		return Decode_at_marker(str)
+	}
+}

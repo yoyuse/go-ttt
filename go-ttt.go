@@ -19,11 +19,13 @@ func do_ttt(args []string, opt_n bool, opt_Z bool) {
 	dst := ""
 	len := len(args)
 	for i, str := range args {
-		if opt_Z {
-			dst += ttt.Decode_substring(str)
-		} else {
-			dst += ttt.Decode_at_marker(str)
-		}
+		// if opt_Z {
+		// 	dst += ttt.Decode_substring(str)
+		// } else {
+		// 	dst += ttt.Decode_at_marker(str)
+		// }
+		dst += ttt.Decode_substring_or_at_marker(str)
+		//
 		if i == len-1 {
 			if !opt_n {
 				dst += "\n"
@@ -42,11 +44,13 @@ func do_ttt_stdin(opt_n bool, opt_Z bool) {
 		str, err := r.ReadString('\n')
 		// XXX: output here, for case that str does not end with '\n'
 		var dst string
-		if opt_Z {
-			dst = ttt.Decode_substring(str)
-		} else {
-			dst = ttt.Decode_at_marker(str)
-		}
+		// if opt_Z {
+		// 	dst = ttt.Decode_substring(str)
+		// } else {
+		// 	dst = ttt.Decode_at_marker(str)
+		// }
+		dst = ttt.Decode_substring_or_at_marker(str)
+		//
 		fmt.Print(dst)
 		if err == io.EOF {
 			break
@@ -126,10 +130,14 @@ func unbackslash(str string) string {
 }
 
 func main() {
+	opt_m := flag.String("m", "", "Decode at marker STRING")
 	opt_n := flag.Bool("n", false, "no newline")
 	opt_Z := flag.Bool("Z", false, "implicit ttt at end of each str or line")
 	flag.Parse()
 	args := flag.Args()
+	if (*opt_m != "") {
+		ttt.Set_marker(unbackslash(*opt_m))
+	}
 	if len(args) == 0 {
 		do_ttt_stdin(*opt_n, *opt_Z)
 	} else {

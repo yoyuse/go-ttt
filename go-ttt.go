@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strconv"
+	"strings"
 
 	"rose.local/yuse/go-ttt/ttt"
 )
@@ -50,6 +52,77 @@ func do_ttt_stdin(opt_n bool, opt_Z bool) {
 			break
 		}
 	}
+}
+
+func unbackslash(str string) string {
+	a := strings.Split(str, "")
+	dst := ""
+	for 0 < len(a) {
+		var ch string
+		ch, a = a[0], a[1:]	// shift
+		switch {
+		case ch == "\\" && 0 < len(a):
+			ch, a = a[0], a[1:] // shift
+			switch {
+			case ch == "a": dst += "\a"
+			case ch == "b": dst += "\b"
+			case ch == "e": dst += "\033"
+			case ch == "f": dst += "\f"
+			case ch == "n": dst += "\n"
+			case ch == "r": dst += "\r"
+			case ch == "t": dst += "\t"
+			case ch == "c":
+				var n rune = 0	// XXX: default value
+				if 0 < len(a) && a[0] <= "\x7f" {
+					ch, a = a[0], a[1:]
+					n = []rune(ch)[0] & 0x1f
+					dst += fmt.Sprintf("%c", n)
+				} else {
+					// XXX
+					dst += "c"
+				}
+			case ch == "x":
+				var n int64 = 0	// XXX: default value
+				if 0 < len(a) &&
+					("0" <= a[0] && a[0] <="9" ||
+					"a" <= strings.ToLower(a[0]) &&
+					strings.ToLower(a[0]) <= "f") {
+					ch, a = a[0], a[1:]
+					m, _ := strconv.ParseInt(ch, 16, 8)
+					n = m
+				}
+				if 0 < len(a) &&
+					("0" <= a[0] && a[0] <="9" ||
+					"a" <= strings.ToLower(a[0]) &&
+					strings.ToLower(a[0]) <= "f") {
+					ch, a = a[0], a[1:]
+					m, _ := strconv.ParseInt(ch, 16, 8)
+					n = n * 0x10 + m
+				}
+				dst += fmt.Sprintf("%c", n)
+			case "0" <= ch && ch <= "7":
+				var n int64 = 0	// XXX: default value
+				m, _ := strconv.ParseInt(ch, 8, 8)
+				n = m
+				if 0 < len(a) && "0" <= a[0] && a[0] <= "7" {
+					ch, a = a[0], a[1:]
+					m, _ := strconv.ParseInt(ch, 8, 8)
+					n = n * 010 + m
+				}
+				if 0 < len(a) && "0" <= a[0] && a[0] <= "7" && n < 040 {
+					ch, a = a[0], a[1:]
+					m, _ := strconv.ParseInt(ch, 8, 8)
+					n = n * 010 + m
+				}
+				dst += fmt.Sprintf("%c", n)
+			default:
+				dst += ch
+			}
+		default:
+			dst += ch
+		}
+	}
+	return dst
 }
 
 func main() {

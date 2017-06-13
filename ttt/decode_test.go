@@ -1,5 +1,3 @@
-// 2017-06-07
-
 package ttt
 
 import (
@@ -10,7 +8,7 @@ type stringTest struct {
 	in, out string
 }
 
-var Tests1 = []stringTest {
+var Tests1 = []stringTest{
 	{"kdjd;sjdkd;s", "の、が、のが"},
 	{"ABCDyfhdyd", "ABCDあいう"},
 	{"abcd yfhdyd", "abcd あいう"},
@@ -31,7 +29,7 @@ func TestDecode_substring(t *testing.T) {
 	}
 }
 
-var Tests2 = []stringTest {
+var Tests2 = []stringTest{
 	{"kdjd;sjdkd;s\x1bj", "の、が、のが"},
 	{"ABCDyfhdyd\x1bj", "ABCDあいう"},
 	{"abcd yfhdyd\x1bj", "abcd あいう"},

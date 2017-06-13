@@ -1,5 +1,3 @@
-// 2017-06-07
-
 package ttt
 
 import (
@@ -69,8 +67,7 @@ func Decode_substring(str string) string {
 }
 
 func Decode_at_marker(str, marker string) string {
-	// ;dMARKER;fMARKERhaMARKER -> 岳3
-	for marker != "" {			// if marker != "" {for {...}}
+	for marker != "" { // if marker != "" {for {...}}
 		i := strings.Index(str, marker)
 		if i < 0 {
 			break

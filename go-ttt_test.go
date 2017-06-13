@@ -1,5 +1,3 @@
-// 2017-06-07
-
 package main
 
 import (
@@ -16,7 +14,7 @@ type stringTest struct {
 	in, out string
 }
 
-var Tests0 = []stringTest {
+var Tests0 = []stringTest{
 	{"abefnrt", "abefnrt"},
 	{"\\a\\b\\e\\f\\n\\r\\t", "\a\b\033\f\n\r\t"},
 	{"\\\\", "\\"},
@@ -34,7 +32,7 @@ var Tests0 = []stringTest {
 func Test_Unbackslash(t *testing.T) {
 	for _, ts := range Tests0 {
 		unbs := unbackslash(ts.in)
-		if (unbs != ts.out) {
+		if unbs != ts.out {
 			t.Errorf("unbackslash: %s == %q, want %q", ts.in, unbs, ts.out)
 		}
 	}

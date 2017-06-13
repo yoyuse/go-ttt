@@ -1,6 +1,3 @@
-// 2017-06-06 new type elm, tbl instead of element. slice (bounds) check
-// 2017-06-05
-
 package main
 
 import (
@@ -42,7 +39,6 @@ func do_ttt(args []string, opt_n bool, opt_w bool) {
 func do_ttt_stdin(opt_n bool, opt_w bool) {
 	r := bufio.NewReader(os.Stdin)
 	for {
-		// var str string
 		str, err := r.ReadString('\n')
 		// XXX: output here, for case that str does not end with '\n'
 		var dst string
@@ -65,20 +61,27 @@ func unbackslash(str string) string {
 	dst := ""
 	for 0 < len(a) {
 		var ch string
-		ch, a = a[0], a[1:]	// shift
+		ch, a = a[0], a[1:] // shift
 		switch {
 		case ch == "\\" && 0 < len(a):
 			ch, a = a[0], a[1:] // shift
 			switch {
-			case ch == "a": dst += "\a"
-			case ch == "b": dst += "\b"
-			case ch == "e": dst += "\033"
-			case ch == "f": dst += "\f"
-			case ch == "n": dst += "\n"
-			case ch == "r": dst += "\r"
-			case ch == "t": dst += "\t"
+			case ch == "a":
+				dst += "\a"
+			case ch == "b":
+				dst += "\b"
+			case ch == "e":
+				dst += "\033"
+			case ch == "f":
+				dst += "\f"
+			case ch == "n":
+				dst += "\n"
+			case ch == "r":
+				dst += "\r"
+			case ch == "t":
+				dst += "\t"
 			case ch == "c":
-				var n rune = 0	// XXX: default value
+				var n rune = 0 // XXX: default value
 				if 0 < len(a) && a[0] <= "\x7f" {
 					ch, a = a[0], a[1:]
 					n = []rune(ch)[0] & 0x1f
@@ -88,37 +91,37 @@ func unbackslash(str string) string {
 					dst += "c"
 				}
 			case ch == "x":
-				var n int64 = 0	// XXX: default value
+				var n int64 = 0 // XXX: default value
 				if 0 < len(a) &&
-					("0" <= a[0] && a[0] <="9" ||
-					"a" <= strings.ToLower(a[0]) &&
-					strings.ToLower(a[0]) <= "f") {
+					("0" <= a[0] && a[0] <= "9" ||
+						"a" <= strings.ToLower(a[0]) &&
+							strings.ToLower(a[0]) <= "f") {
 					ch, a = a[0], a[1:]
 					m, _ := strconv.ParseInt(ch, 16, 8)
 					n = m
 				}
 				if 0 < len(a) &&
-					("0" <= a[0] && a[0] <="9" ||
-					"a" <= strings.ToLower(a[0]) &&
-					strings.ToLower(a[0]) <= "f") {
+					("0" <= a[0] && a[0] <= "9" ||
+						"a" <= strings.ToLower(a[0]) &&
+							strings.ToLower(a[0]) <= "f") {
 					ch, a = a[0], a[1:]
 					m, _ := strconv.ParseInt(ch, 16, 8)
-					n = n * 0x10 + m
+					n = n*0x10 + m
 				}
 				dst += fmt.Sprintf("%c", n)
 			case "0" <= ch && ch <= "7":
-				var n int64 = 0	// XXX: default value
+				var n int64 = 0 // XXX: default value
 				m, _ := strconv.ParseInt(ch, 8, 8)
 				n = m
 				if 0 < len(a) && "0" <= a[0] && a[0] <= "7" {
 					ch, a = a[0], a[1:]
 					m, _ := strconv.ParseInt(ch, 8, 8)
-					n = n * 010 + m
+					n = n*010 + m
 				}
 				if 0 < len(a) && "0" <= a[0] && a[0] <= "7" && n < 040 {
 					ch, a = a[0], a[1:]
 					m, _ := strconv.ParseInt(ch, 8, 8)
-					n = n * 010 + m
+					n = n*010 + m
 				}
 				dst += fmt.Sprintf("%c", n)
 			default:
@@ -137,7 +140,7 @@ func main() {
 	opt_w := flag.Bool("w", false, "Decode whole string")
 	flag.Parse()
 	args := flag.Args()
-	if (*opt_m != "") {
+	if *opt_m != "" {
 		marker = unbackslash(*opt_m)
 	}
 	if len(args) == 0 {

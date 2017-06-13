@@ -68,7 +68,7 @@ func Decode_substring(str string) string {
 	return head + Decode_string(body) + tail
 }
 
-func Decode_at_marker(str string) string {
+func Decode_at_marker(str, marker string) string {
 	// ;dMARKER;fMARKERhaMARKER -> 岳3
 	for marker != "" {			// if marker != "" {for {...}}
 		i := strings.Index(str, marker)
@@ -79,16 +79,4 @@ func Decode_at_marker(str string) string {
 		str = Decode_substring(src) + str[(i+len(marker)):]
 	}
 	return str
-}
-
-func Set_marker(str string) {
-	marker = str
-}
-
-func Decode_substring_or_at_marker(str string) string {
-	if marker == "" {
-		return Decode_substring(str)
-	} else {
-		return Decode_at_marker(str)
-	}
 }

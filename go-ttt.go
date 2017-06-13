@@ -15,14 +15,18 @@ import (
 	"rose.local/yuse/go-ttt/ttt"
 )
 
+var marker = ""
+
 func do_ttt(args []string, opt_n bool, opt_w bool) {
 	dst := ""
 	len := len(args)
 	for i, str := range args {
 		if opt_w {
 			dst += ttt.Decode_string(str)
+		} else if marker == "" {
+			dst += ttt.Decode_substring(str)
 		} else {
-			dst += ttt.Decode_substring_or_at_marker(str)
+			dst += ttt.Decode_at_marker(str, marker)
 		}
 		if i == len-1 {
 			if !opt_n {
@@ -44,8 +48,10 @@ func do_ttt_stdin(opt_n bool, opt_w bool) {
 		var dst string
 		if opt_w {
 			dst = ttt.Decode_string(str)
+		} else if marker == "" {
+			dst = ttt.Decode_substring(str)
 		} else {
-			dst = ttt.Decode_substring_or_at_marker(str)
+			dst = ttt.Decode_at_marker(str, marker)
 		}
 		fmt.Print(dst)
 		if err == io.EOF {
@@ -132,7 +138,7 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 	if (*opt_m != "") {
-		ttt.Set_marker(unbackslash(*opt_m))
+		marker = unbackslash(*opt_m)
 	}
 	if len(args) == 0 {
 		do_ttt_stdin(*opt_n, *opt_w)

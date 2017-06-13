@@ -5,8 +5,6 @@ package ttt
 var keys = "1234567890qwertyuiopasdfghjkl;zxcvbnm,./"
 var delimiter = ":"
 
-var marker = ""
-
 // TABLE BEGIN - DO NOT REMOVE THIS LINE
 
 type elm interface{}

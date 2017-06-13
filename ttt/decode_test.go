@@ -44,9 +44,9 @@ var Tests2 = []stringTest {
 }
 
 func TestDecode_at_marker(t *testing.T) {
-	Set_marker("\x1bj")
+	var marker = "\x1bj"
 	for _, ts := range Tests2 {
-		dec := Decode_at_marker(ts.in)
+		dec := Decode_at_marker(ts.in, marker)
 		if dec != ts.out {
 			t.Errorf("Decode_at_marker(%q) == %q, want %q", ts.in, dec, ts.out)
 		}

@@ -4,8 +4,8 @@ import (
 	"testing"
 )
 
-func ExampleDecode_string() {
-	do_ttt([]string{"kdjd;sjdkd;s", "lgkg;gjslghdhghdkshdkd"})
+func ExampleDecodeString() {
+	doTTT([]string{"kdjd;sjdkd;s", "lgkg;gjslghdhghdkshdkd"})
 	// Output:
 	// の、が、のが なにをしないでいたいの
 }
@@ -29,7 +29,7 @@ var Tests0 = []stringTest{
 	{"bad \\c", "bad c"},
 }
 
-func Test_Unbackslash(t *testing.T) {
+func TestUnbackslash(t *testing.T) {
 	for _, ts := range Tests0 {
 		unbs := unbackslash(ts.in)
 		if unbs != ts.out {

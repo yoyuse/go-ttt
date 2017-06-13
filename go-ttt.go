@@ -18,16 +18,16 @@ var opt_w = flag.Bool("w", false, "Decode whole string")
 
 var marker = ""
 
-func do_ttt(args []string) {
+func doTTT(args []string) {
 	dst := ""
 	len := len(args)
 	for i, str := range args {
 		if *opt_w {
-			dst += ttt.Decode_string(str)
+			dst += ttt.DecodeString(str)
 		} else if marker == "" {
-			dst += ttt.Decode_substring(str)
+			dst += ttt.DecodeSubstring(str)
 		} else {
-			dst += ttt.Decode_at_marker(str, marker)
+			dst += ttt.DecodeAtMarker(str, marker)
 		}
 		if i == len-1 {
 			if !*opt_n {
@@ -40,18 +40,18 @@ func do_ttt(args []string) {
 	fmt.Print(dst)
 }
 
-func do_ttt_stdin() {
+func doTTTStdin() {
 	r := bufio.NewReader(os.Stdin)
 	for {
 		str, err := r.ReadString('\n')
 		// XXX: output here, for case that str does not end with '\n'
 		var dst string
 		if *opt_w {
-			dst = ttt.Decode_string(str)
+			dst = ttt.DecodeString(str)
 		} else if marker == "" {
-			dst = ttt.Decode_substring(str)
+			dst = ttt.DecodeSubstring(str)
 		} else {
-			dst = ttt.Decode_at_marker(str, marker)
+			dst = ttt.DecodeAtMarker(str, marker)
 		}
 		fmt.Print(dst)
 		if err == io.EOF {
@@ -145,8 +145,8 @@ func main() {
 		marker = unbackslash(*opt_m)
 	}
 	if len(args) == 0 {
-		do_ttt_stdin()
+		doTTTStdin()
 	} else {
-		do_ttt(args)
+		doTTT(args)
 	}
 }

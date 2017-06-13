@@ -20,11 +20,11 @@ var Tests1 = []stringTest{
 	{";d;fha", "123"},
 }
 
-func TestDecode_substring(t *testing.T) {
+func TestDecodeSubstring(t *testing.T) {
 	for _, ts := range Tests1 {
-		dec := Decode_substring(ts.in)
+		dec := DecodeSubstring(ts.in)
 		if dec != ts.out {
-			t.Errorf("Decode_substring(%q) == %q, want %q", ts.in, dec, ts.out)
+			t.Errorf("DecodeSubstring(%q) == %q, want %q", ts.in, dec, ts.out)
 		}
 	}
 }
@@ -41,12 +41,12 @@ var Tests2 = []stringTest{
 	{";d\x1bj;f\x1bjha", "岳ha"},
 }
 
-func TestDecode_at_marker(t *testing.T) {
+func TestDecodeAtMarker(t *testing.T) {
 	var marker = "\x1bj"
 	for _, ts := range Tests2 {
-		dec := Decode_at_marker(ts.in, marker)
+		dec := DecodeAtMarker(ts.in, marker)
 		if dec != ts.out {
-			t.Errorf("Decode_at_marker(%q) == %q, want %q", ts.in, dec, ts.out)
+			t.Errorf("DecodeAtMarker(%q) == %q, want %q", ts.in, dec, ts.out)
 		}
 	}
 }

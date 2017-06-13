@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func Decode_string(str string) string {
+func DecodeString(str string) string {
 	code := strings.Split(str, "")
 	dst := ""
 	var t elm = table
@@ -35,7 +35,7 @@ func Decode_string(str string) string {
 	return dst
 }
 
-func Decode_substring(str string) string {
+func DecodeSubstring(str string) string {
 	code := strings.Split(str, "")
 	var ch, tail, body, head string
 	i := len(code) - 1
@@ -63,17 +63,17 @@ func Decode_substring(str string) string {
 		head = ch + head
 		i -= 1
 	}
-	return head + Decode_string(body) + tail
+	return head + DecodeString(body) + tail
 }
 
-func Decode_at_marker(str, marker string) string {
+func DecodeAtMarker(str, marker string) string {
 	for marker != "" { // if marker != "" {for {...}}
 		i := strings.Index(str, marker)
 		if i < 0 {
 			break
 		}
 		src := str[:i]
-		str = Decode_substring(src) + str[(i+len(marker)):]
+		str = DecodeSubstring(src) + str[(i+len(marker)):]
 	}
 	return str
 }

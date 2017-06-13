@@ -1,6 +1,7 @@
 # go-ttt
 
-`go-ttt` is a Tiny TT-Code Translation program for CLI, written in Go.
+`go-ttt` is a Tiny TT-Code Translation program for command-line interface,
+written in Go.
 
 ## Usage
 
@@ -25,23 +26,23 @@ $ go-ttt -m % <<< 'yd.djtjshdjfoxhgw7ig;eks% Morio:/v%'
 ```
 
 Decode is done as well as [ttt](https://github.com/yoyuse/ttt);
-that is, `go-ttt` scans string from its tail to head,
+that is, `go-ttt` scans string from tail to head,
 finds first valid T-Code string and decode it to Japanese.
 
-When `-m` *marker* option is specified,
-`go-ttt` does ttt decode at each point where *marker* appears in given strings.
+If `-m` *marker* option is given,
+`go-ttt` does ttt decode at each position in strings where *marker* appears.
 
 ### Command line options
 
 | Option | Meaning |
 |--------|---------|
-| `-m` *marker* | Decode at each occurrence of *marker* |
+| `-m` *marker* | Decode at each position of *marker* |
 | `-n` | Do not output newline (when echo-mode) |
 | `-w` | Decode whole string rather than à la ttt |
 
 ### Marker string
 
-Marker string can include following sequence:
+Marker string can include normal ASCII characters and following sequences:
 
 | Sequence | Meaning |
 |----------|---------|
@@ -57,39 +58,44 @@ Marker string can include following sequence:
 | `\x`*hh* | Hexadecimal character |
 | `\c`*C* | Control character |
 
-For example, `$ go-ttt -m '\ej'` sets marker to `Esc j`,
-which can be input by <kbd>Alt</kbd>+<kbd>j</kbd> in some terminal.
+For example, `$ go-ttt -m '\ej'` sets marker to `Esc j`.
 Either `'\033j'`, `'\x1bj'` or `'\c[j'` works as well.
 
-## Sample configurations
+## Sample scripts
 
-Following settings enable ttt Japanse input with <kbd>Alt</kbd>+<kbd>j</kbd>
+With following configuration,
+ttt-like Japanse input can be done with <kbd>Alt</kbd>+<kbd>j</kbd>
 on command line of interactive shell.
 
 ### Bash
 
-Bash 4 or later is required.
+~/.bashrc (Bash 4 or later is required):
 
 ``` shell
 function bash-ttt() {
-    local src=$(printf "%s" "$READLINE_LINE" | cut -b 1-$READLINE_POINT)
-    local rest=$(printf "%s" "$READLINE_LINE" | cut -b $(expr $READLINE_POINT + 1)-)
-    local dst=$(go-ttt <<< "$src")
-    READLINE_LINE="$dst$rest"
-    READLINE_POINT=$(expr $(printf "%s" "$dst" | wc -c))
+    local lbuf=$(cut -b 1-$READLINE_POINT <<< "$READLINE_LINE")
+    local rbuf=$(cut -b $(expr $READLINE_POINT + 1)- <<< "$READLINE_LINE")
+    local buf=$(go-ttt <<< "$lbuf")
+    READLINE_LINE="$buf$rbuf"
+    READLINE_POINT=$(expr $(wc -c <<< "$buf") - 1)
 }
 
-bind -x '"\ej": bash-ttt'
+if [ $BASH_VERSINFO -gt 3 ]
+then
+    bind -x '"\ej": bash-ttt'
+fi
 ```
 
 ### Zsh
 
+~/.zshrc:
+
 ``` shell
 function zsh-ttt() {
-    local rbuf="${RBUFFER}"
-    BUFFER=$(go-ttt <<< "${LBUFFER}")
+    local rbuf="$RBUFFER"
+    BUFFER=$(go-ttt <<< "$LBUFFER")
     CURSOR=$#BUFFER
-    BUFFER="$BUFFER${rbuf}"
+    BUFFER="$BUFFER$rbuf"
 }
 
 zle -N zsh-ttt

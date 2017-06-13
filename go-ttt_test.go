@@ -5,7 +5,7 @@ import (
 )
 
 func ExampleDecode_string() {
-	do_ttt([]string{"kdjd;sjdkd;s", "lgkg;gjslghdhghdkshdkd"}, false, true)
+	do_ttt([]string{"kdjd;sjdkd;s", "lgkg;gjslghdhghdkshdkd"})
 	// Output:
 	// の、が、のが なにをしないでいたいの
 }

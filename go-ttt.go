@@ -12,13 +12,17 @@ import (
 	"rose.local/yuse/go-ttt/ttt"
 )
 
+var opt_m = flag.String("m", "", "Decode at marker STRING")
+var opt_n = flag.Bool("n", false, "no newline")
+var opt_w = flag.Bool("w", false, "Decode whole string")
+
 var marker = ""
 
-func do_ttt(args []string, opt_n bool, opt_w bool) {
+func do_ttt(args []string) {
 	dst := ""
 	len := len(args)
 	for i, str := range args {
-		if opt_w {
+		if *opt_w {
 			dst += ttt.Decode_string(str)
 		} else if marker == "" {
 			dst += ttt.Decode_substring(str)
@@ -26,7 +30,7 @@ func do_ttt(args []string, opt_n bool, opt_w bool) {
 			dst += ttt.Decode_at_marker(str, marker)
 		}
 		if i == len-1 {
-			if !opt_n {
+			if !*opt_n {
 				dst += "\n"
 			}
 		} else {
@@ -36,13 +40,13 @@ func do_ttt(args []string, opt_n bool, opt_w bool) {
 	fmt.Print(dst)
 }
 
-func do_ttt_stdin(opt_n bool, opt_w bool) {
+func do_ttt_stdin() {
 	r := bufio.NewReader(os.Stdin)
 	for {
 		str, err := r.ReadString('\n')
 		// XXX: output here, for case that str does not end with '\n'
 		var dst string
-		if opt_w {
+		if *opt_w {
 			dst = ttt.Decode_string(str)
 		} else if marker == "" {
 			dst = ttt.Decode_substring(str)
@@ -135,17 +139,14 @@ func unbackslash(str string) string {
 }
 
 func main() {
-	opt_m := flag.String("m", "", "Decode at marker STRING")
-	opt_n := flag.Bool("n", false, "no newline")
-	opt_w := flag.Bool("w", false, "Decode whole string")
 	flag.Parse()
 	args := flag.Args()
 	if *opt_m != "" {
 		marker = unbackslash(*opt_m)
 	}
 	if len(args) == 0 {
-		do_ttt_stdin(*opt_n, *opt_w)
+		do_ttt_stdin()
 	} else {
-		do_ttt(args, *opt_n, *opt_w)
+		do_ttt(args)
 	}
 }

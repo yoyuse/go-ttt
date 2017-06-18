@@ -9,8 +9,9 @@ written in Go.
 $ go-ttt [options] [--] [string ...]
 ```
 
-`go-ttt` decodes each T-Code strings given as command line arguments to Japanese text.
-If no argument is provided, `go-ttt` decodes standard input.
+`go-ttt` decodes each T-Code strings given as command line arguments
+to Japanese text (`echo` mode).
+If no argument is provided, `go-ttt` decodes standard input (`cat` mode).
 
 Some examples:
 
@@ -25,7 +26,7 @@ $ go-ttt -m % <<< 'yd.djtjshdjfoxhgw7ig;eks% Morio:/v%'
 うつくしい森で飾られた Morio市
 ```
 
-Decode is done as well as [ttt](https://github.com/yoyuse/ttt);
+Decode is done as well as [ttt.el](https://github.com/yoyuse/ttt);
 that is, `go-ttt` scans string from tail to head,
 finds first valid T-Code string and decode it to Japanese.
 
@@ -34,17 +35,17 @@ If `-m` *marker* option is given,
 
 ### Command line options
 
-| Option | Meaning |
+| Option | Description |
 |--------|---------|
 | `-m` *marker* | Decode at each position of *marker* |
-| `-n` | Do not output newline (when echo-mode) |
+| `-n` | Do not output newline (when `echo` mode) |
 | `-w` | Decode whole string rather than à la ttt |
 
 ### Marker string
 
 Marker string can include normal ASCII characters and following sequences:
 
-| Sequence | Meaning |
+| Sequence | Description |
 |----------|---------|
 | `\a` | Bell |
 | `\b` | BackSpace|
@@ -104,4 +105,4 @@ bindkey '\ej' zsh-ttt
 
 ## License
 
-UNDEFINED © yoyuse
+MIT

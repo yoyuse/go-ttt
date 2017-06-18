@@ -16,7 +16,7 @@ var Tests1 = []stringTest{
 	{"ysksjsks/ajgjfkdt8p3;gpzjshdjtighd", "わたしたちは氷砂糖をほしいくらい"},
 	{"あの Iha-Tovo kd,fhrjaoajrks風", "あの Iha-Tovo のすきとおった風"},
 	{"うつくしい森で飾られた Morio:/v", "うつくしい森で飾られた Morio市"},
-	{"(またアラッディン　\\ruby{lyfjlk}{ラムプ}とり)", "(またアラッディン　\\ruby{洋燈}{ラムプ}とり)"},
+	{"(またAladdin　lyfjlk[ラムプ]とり)", "(またAladdin　洋燈[ラムプ]とり)"},
 	{";d;fha", "123"},
 }
 
@@ -37,7 +37,7 @@ var Tests2 = []stringTest{
 	{"ysksjsks/ajgjfkdt8p3;gpzjshdjtighd\x1bj", "わたしたちは氷砂糖をほしいくらい"},
 	{"yfkd\x1bj Iha-Tovo kd,fhrjaoajrks風\x1bj", "あの Iha-Tovo のすきとおった風"},
 	{"うつくしい森で飾られた Morio:/v\x1bj", "うつくしい森で飾られた Morio市"},
-	{"(またアラッディン　\\ruby{lyfjlk}{usubmw}jajc)\x1bj\x1bj\x1bj", "(またアラッディン　\\ruby{洋燈}{ラムプ}とり)"},
+	{"(またAladdin　lyfjlk[usubmw]jajc)\x1bj\x1bj\x1bj", "(またAladdin　洋燈[ラムプ]とり)"},
 	{";d\x1bj;f\x1bjha", "岳ha"},
 }
 

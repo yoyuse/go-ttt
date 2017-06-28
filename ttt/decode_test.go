@@ -13,10 +13,10 @@ var Tests1 = []stringTest{
 	{"ABCDyfhdyd", "ABCDあいう"},
 	{"abcd yfhdyd", "abcd あいう"},
 	{"abcd:yfhdyd", "abcdあいう"},
-	{"ysksjsks/ajgjfkdt8p3;gpzjshdjtighd", "わたしたちは氷砂糖をほしいくらい"},
-	{"あの Iha-Tovo kd,fhrjaoajrks風", "あの Iha-Tovo のすきとおった風"},
-	{"うつくしい森で飾られた Morio:/v", "うつくしい森で飾られた Morio市"},
-	{"(またAladdin　lyfjlk[ラムプ]とり)", "(またAladdin　洋燈[ラムプ]とり)"},
+	{"ysksjsks/ajgjdjfkdt8p3;gpzjshdjtighdiakslghdhgiajd", "わたしたちは、氷砂糖をほしいくらいもたないでも、"},
+	{"あの Iha-Tovo kd,fhrjaoajrks風、", "あの Iha-Tovo のすきとおった風、"},
+	{"うつくしい森で飾られた Morio:/vjd", "うつくしい森で飾られた Morio市、"},
+	{"(またAladdin  lyfjlk[ラムプ]とり)", "(またAladdin  洋燈[ラムプ]とり)"},
 	{";d;fha", "123"},
 }
 
@@ -34,10 +34,10 @@ var Tests2 = []stringTest{
 	{"ABCDyfhdyd\x1bj", "ABCDあいう"},
 	{"abcd yfhdyd\x1bj", "abcd あいう"},
 	{"abcd:yfhdyd\x1bj", "abcdあいう"},
-	{"ysksjsks/ajgjfkdt8p3;gpzjshdjtighd\x1bj", "わたしたちは氷砂糖をほしいくらい"},
-	{"yfkd\x1bj Iha-Tovo kd,fhrjaoajrks風\x1bj", "あの Iha-Tovo のすきとおった風"},
-	{"うつくしい森で飾られた Morio:/v\x1bj", "うつくしい森で飾られた Morio市"},
-	{"(またAladdin　lyfjlk[usubmw]jajc)\x1bj\x1bj\x1bj", "(またAladdin　洋燈[ラムプ]とり)"},
+	{"ysksjsks/ajgjdjfkdt8p3;gpzjshdjtighdiakslghdhgiajd\x1bj", "わたしたちは、氷砂糖をほしいくらいもたないでも、"},
+	{"yfkd\x1bj Iha-Tovo kd,fhrjaoajrks風、\x1bj", "あの Iha-Tovo のすきとおった風、"},
+	{"うつくしい森で飾られた Morio:/vjd\x1bj", "うつくしい森で飾られた Morio市、"},
+	{"(またAladdin  lyfjlk[usubmw]jajc)\x1bj\x1bj\x1bj", "(またAladdin  洋燈[ラムプ]とり)"},
 	{";d\x1bj;f\x1bjha", "岳ha"},
 }
 

@@ -16,14 +16,14 @@ If no argument is provided, `go-ttt` decodes standard input (`cat` mode).
 Some examples:
 
 ``` console
-$ go-ttt 'ysksjsks/ajgjdjfkdt8p3;gpzjshdjtighdiakslghdhgia'
-わたしたちは、氷砂糖をほしいくらいもたないでも
+$ go-ttt 'ysksjsks/ajgjdjfkdt8p3;gpzjshdjtighdiakslghdhgiajd'
+わたしたちは、氷砂糖をほしいくらいもたないでも、
 
-$ echo 'yfkd% Iha-Tovo kd,fhrjaoajrksqr%' | go-ttt -m %
-あの Iha-Tovo のすきとおった風
+$ echo 'yfkd% Iha-Tovo kd,fhrjaoajrksqrjd%' | go-ttt -m %
+あの Iha-Tovo のすきとおった風、
 
-$ go-ttt -m % <<< 'yd.djtjshdjfoxhgw7ig;eks% Morio:/v%'
-うつくしい森で飾られた Morio市
+$ go-ttt -m % <<< 'yd.djtjshdjfoxhgw7ig;eks% Morio:/vjd%'
+うつくしい森で飾られた Morio市、
 ```
 
 Decode is done as well as [ttt.el](https://github.com/yoyuse/ttt);

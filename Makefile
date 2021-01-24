@@ -1,7 +1,8 @@
+# 2021-01-24
 # 2017-06-07
 
 SRC	= go-ttt.go
-REPO	= rose.local/yuse/go-ttt
+REPO	= github.com/yoyuse/go-ttt
 GO_TTT	= $(REPO)
 TTT	= $(REPO)/ttt
 

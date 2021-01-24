@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"rose.local/yuse/go-ttt/ttt"
+	"github.com/yoyuse/go-ttt/ttt"
 )
 
 var opt_m = flag.String("m", "", "Decode at marker STRING")
